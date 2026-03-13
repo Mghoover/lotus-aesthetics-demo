@@ -2,6 +2,7 @@
 const { title, description } = Astro.props;
 import { branding } from "../config/branding";
 import { siteConfig } from "../config/site";
+import "../styles/global.css";
 
 const resolvedTitle = title ? `${title} | ${branding.clinicName}` : branding.clinicName;
 const resolvedDescription = description ?? siteConfig.seo.serviceAreaSummary;
@@ -50,7 +51,6 @@ const localBusinessSchema = {
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="/src/styles/global.css">
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 </head>
 <body data-clinic-address={clinicAddress}>
