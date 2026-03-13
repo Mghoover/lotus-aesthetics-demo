@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/lotus/PageHero.astro";
+import ServiceGrid from "../../components/lotus/ServiceGrid.astro";
+import { lotusContent } from "../../content/lotus";
+---
+<BaseLayout title={lotusContent.servicesHub.seo.title} description={lotusContent.servicesHub.seo.description}>
+  <Header />
+  <main>
+    <PageHero hero={lotusContent.servicesHub.hero} />
+    <ServiceGrid items={lotusContent.servicesHub.cards} subdued={true} />
+  </main>
+  <Footer />
+</BaseLayout>

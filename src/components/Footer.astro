@@ -1,0 +1,43 @@
+---
+import { branding } from "../config/branding";
+import { navigation } from "../config/navigation";
+import { siteConfig } from "../config/site";
+---
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <img class="footer-logo" src={branding.logo} alt={branding.clinicName} />
+      <p class="footer-copy">
+        Physician-led aesthetics, wellness, and select same-day medical care for Florence, South Carolina.
+      </p>
+    </div>
+
+    <div>
+      <p class="footer-heading">Explore</p>
+      <div class="footer-links">
+        {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a href="/services">Services Overview</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="footer-heading">Contact</p>
+      <div class="footer-links">
+        <a href={`tel:${siteConfig.phoneHref}`}>{siteConfig.phone}</a>
+        <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        <p>{siteConfig.address.street}</p>
+        <p>{siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer-meta">
+    <p>&copy; {new Date().getFullYear()} {branding.clinicName}</p>
+    <p class="muted">
+      <a href={branding.ordinisCredit.url} target="_blank" rel="noopener noreferrer">
+        {branding.ordinisCredit.text}
+      </a>
+    </p>
+  </div>
+</footer>

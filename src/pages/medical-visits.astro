@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/lotus/PageHero.astro";
+import ServiceGrid from "../components/lotus/ServiceGrid.astro";
+import ValueGrid from "../components/lotus/ValueGrid.astro";
+import FaqSection from "../components/lotus/FaqSection.astro";
+import CtaBand from "../components/lotus/CtaBand.astro";
+import { lotusContent } from "../content/lotus";
+---
+<BaseLayout title={lotusContent.medicalPage.seo.title} description={lotusContent.medicalPage.seo.description}>
+  <Header />
+  <main>
+    <PageHero hero={lotusContent.medicalPage.hero} />
+    <ServiceGrid intro={lotusContent.medicalPage.intro} items={lotusContent.medicalPage.services} />
+    <ValueGrid intro={lotusContent.medicalPage.valuesIntro} items={lotusContent.medicalPage.values} muted={true} />
+    <FaqSection items={lotusContent.medicalPage.faq} />
+    <CtaBand section={lotusContent.medicalPage.cta} />
+  </main>
+  <Footer />
+</BaseLayout>

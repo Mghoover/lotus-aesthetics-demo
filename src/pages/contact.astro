@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/lotus/PageHero.astro";
+import ContactSection from "../components/lotus/ContactSection.astro";
+import CtaBand from "../components/lotus/CtaBand.astro";
+import { lotusContent } from "../content/lotus";
+---
+<BaseLayout title={lotusContent.contactPage.seo.title} description={lotusContent.contactPage.seo.description}>
+  <Header />
+  <main>
+    <PageHero hero={lotusContent.contactPage.hero} />
+    <ContactSection
+      cards={lotusContent.contactPage.cards}
+      formIntro={lotusContent.contactPage.formIntro}
+      mapIntro={lotusContent.contactPage.mapIntro}
+    />
+    <CtaBand section={lotusContent.contactPage.cta} />
+  </main>
+  <Footer />
+</BaseLayout>

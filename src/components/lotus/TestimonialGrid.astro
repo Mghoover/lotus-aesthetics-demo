@@ -1,0 +1,26 @@
+---
+import SectionIntro from "./SectionIntro.astro";
+import type { SectionIntro as SectionIntroType, Testimonial } from "../../types/lotus";
+
+const {
+  intro,
+  items,
+} = Astro.props as {
+  intro?: SectionIntroType;
+  items: Testimonial[];
+};
+---
+<section class="section section-muted">
+  <div class="container">
+    {intro && <SectionIntro {...intro} />}
+    <div class="lotus-testimonial-grid">
+      {items.map((item) => (
+        <article class="lotus-testimonial-card">
+          <p class="lotus-testimonial-card__quote">"{item.quote}"</p>
+          <p class="lotus-testimonial-card__author">{item.author}</p>
+          <p class="lotus-testimonial-card__role">{item.role}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

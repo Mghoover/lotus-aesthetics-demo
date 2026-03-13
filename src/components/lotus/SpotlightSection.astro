@@ -1,0 +1,42 @@
+---
+import type { SpotlightSection as SpotlightSectionType } from "../../types/lotus";
+
+const {
+  section,
+  reverse = false,
+  muted = false,
+} = Astro.props as {
+  section: SpotlightSectionType;
+  reverse?: boolean;
+  muted?: boolean;
+};
+---
+<section class:list={["section", muted && "section-muted"]}>
+  <div class="container">
+    <div class:list={["lotus-spotlight", reverse && "is-reverse"]}>
+      <div class="lotus-spotlight__content">
+        {section.eyebrow && <p class="lotus-spotlight__eyebrow">{section.eyebrow}</p>}
+        <h2>{section.title}</h2>
+        {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        {section.bullets && (
+          <ul class="lotus-spotlight__list">
+            {section.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+        )}
+        {section.ctas && (
+          <div class="lotus-spotlight__actions">
+            {section.ctas.map((cta) => (
+              <a class:list={["btn", cta.variant === "secondary" ? "btn-secondary" : "btn-primary"]} href={cta.href}>
+                {cta.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="lotus-spotlight__media card">
+        <img src={section.image} alt={section.imageAlt} loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/lotus/PageHero.astro";
+import TestimonialGrid from "../components/lotus/TestimonialGrid.astro";
+import FaqSection from "../components/lotus/FaqSection.astro";
+import CtaBand from "../components/lotus/CtaBand.astro";
+import { lotusContent } from "../content/lotus";
+---
+<BaseLayout title="Patient Reviews" description="Preview patient-facing review content for Lotus Aesthetics & Wellness.">
+  <Header />
+  <main>
+    <PageHero
+      hero={{
+        eyebrow: "Patient Reviews",
+        title: "Demonstration review content for the Lotus brand direction",
+        description:
+          "This route remains available as an optional supporting page. It now matches the premium aesthetics and wellness positioning rather than the original template copy.",
+      }}
+    />
+    <TestimonialGrid intro={lotusContent.home.testimonialsIntro} items={lotusContent.home.testimonials} />
+    <FaqSection intro={lotusContent.home.faqIntro} items={lotusContent.home.faq} />
+    <CtaBand section={lotusContent.home.cta} />
+  </main>
+  <Footer />
+</BaseLayout>

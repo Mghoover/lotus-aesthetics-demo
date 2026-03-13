@@ -1,0 +1,12 @@
+<svg width="860" height="720" viewBox="0 0 860 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="860" height="720" rx="40" fill="#F7F2E8"/>
+  <circle cx="690" cy="164" r="164" fill="#E3E8DA"/>
+  <circle cx="170" cy="570" r="190" fill="#E9DCC2"/>
+  <path d="M194 530C268 410 362 334 476 302C462 410 401 512 293 608C261 636 220 657 170 670C173 618 181 571 194 530Z" fill="#8EA184" fill-opacity="0.82"/>
+  <path d="M324 500C350 390 420 302 534 236C566 346 550 450 486 548C462 585 431 620 391 654C344 609 322 558 324 500Z" fill="#A5B08E" fill-opacity="0.88"/>
+  <path d="M440 486C430 378 468 284 554 204C630 286 664 390 654 518C649 573 630 624 598 672C542 648 489 586 440 486Z" fill="#D6B774" fill-opacity="0.86"/>
+  <path d="M562 504C542 382 568 268 640 160C744 224 806 308 826 412C834 456 828 506 810 562C744 540 678 504 612 454L562 504Z" fill="#7D957F" fill-opacity="0.84"/>
+  <rect x="70" y="74" width="404" height="132" rx="28" fill="white" fill-opacity="0.62"/>
+  <text x="108" y="128" fill="#25302A" font-family="Georgia, serif" font-size="34">Lotus Aesthetics</text>
+  <text x="108" y="166" fill="#6B6E63" font-family="Arial, sans-serif" font-size="20">Wellness hero placeholder artwork</text>
+</svg>

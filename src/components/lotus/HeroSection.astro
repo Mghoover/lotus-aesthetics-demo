@@ -1,0 +1,30 @@
+---
+import type { HeroData } from "../../types/lotus";
+
+const { hero } = Astro.props as { hero: HeroData };
+---
+<section class="lotus-hero">
+  <div class="container lotus-hero__grid">
+    <div class="lotus-hero__content">
+      {hero.eyebrow && <p class="lotus-hero__eyebrow">{hero.eyebrow}</p>}
+      <h1>{hero.title}</h1>
+      <p class="lotus-hero__description">{hero.description}</p>
+
+      <div class="lotus-hero__actions">
+        {hero.ctas.map((cta) => (
+          <a class:list={["btn", cta.variant === "secondary" ? "btn-secondary" : "btn-primary"]} href={cta.href}>
+            {cta.label}
+          </a>
+        ))}
+      </div>
+
+      <ul class="lotus-hero__highlights">
+        {hero.highlights.map((highlight) => <li>{highlight}</li>)}
+      </ul>
+    </div>
+
+    <div class="lotus-hero__media card">
+      <img src={hero.image} alt={hero.imageAlt} loading="eager" decoding="async" />
+    </div>
+  </div>
+</section>

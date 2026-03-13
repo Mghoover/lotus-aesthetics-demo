@@ -1,0 +1,59 @@
+---
+const { title, description } = Astro.props;
+import { branding } from "../config/branding";
+import { siteConfig } from "../config/site";
+
+const resolvedTitle = title ? `${title} | ${branding.clinicName}` : branding.clinicName;
+const resolvedDescription = description ?? siteConfig.seo.serviceAreaSummary;
+const clinicAddress = `${siteConfig.address.street}, ${siteConfig.address.city}, ${siteConfig.address.state} ${siteConfig.address.zip}`;
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalClinic",
+  name: branding.clinicName,
+  alternateName: siteConfig.legacyClinicName,
+  description: resolvedDescription,
+  url: siteConfig.siteUrl,
+  telephone: siteConfig.phone,
+  email: siteConfig.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: siteConfig.address.street,
+    addressLocality: siteConfig.address.city,
+    addressRegion: siteConfig.address.state,
+    postalCode: siteConfig.address.zip,
+  },
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={resolvedDescription} />
+  <meta name="theme-color" content={branding.colors.primary} />
+  <meta property="og:title" content={resolvedTitle} />
+  <meta property="og:description" content={resolvedDescription} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={branding.clinicName} />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={resolvedTitle} />
+  <meta name="twitter:description" content={resolvedDescription} />
+  <meta name="format-detection" content="telephone=yes" />
+  <title>{resolvedTitle}</title>
+  <slot name="head" />
+  <link rel="icon" type="image/svg+xml" href={branding.favicon} sizes="any" />
+  <link rel="shortcut icon" href={branding.favicon} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/src/styles/global.css">
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+</head>
+<body data-clinic-address={clinicAddress}>
+  <slot />
+</body>
+</html>

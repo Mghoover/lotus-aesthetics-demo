@@ -1,0 +1,289 @@
+---
+import { pages } from "../content/pages";
+
+let googleBadge = null;
+
+try {
+  const reviewsModule = await import("../data/google-reviews.json");
+  const reviewsData = reviewsModule?.default ?? reviewsModule;
+  const rating = Number(reviewsData?.rating);
+  const totalReviews = Number(reviewsData?.totalReviews);
+  const googleUrl = reviewsData?.googleUrl;
+
+  if (!Number.isNaN(rating) && !Number.isNaN(totalReviews) && totalReviews > 0 && googleUrl) {
+    googleBadge = {
+      rating: rating.toFixed(1),
+      totalReviews,
+      googleUrl,
+    };
+  }
+} catch {
+  googleBadge = null;
+}
+
+const slides = pages.home.heroSlides.map((slide, index) => ({
+  ...slide,
+  themeClass: `theme-${(index % 3) + 1}`,
+}));
+---
+<section class="hero-carousel" aria-label="Homepage featured messages">
+  <div class="hero-carousel__track">
+    {slides.map((slide, index) => (
+      <article
+        class={`hero-carousel__slide ${slide.themeClass} ${index === 0 ? "is-active" : ""}`}
+        aria-hidden={index === 0 ? "false" : "true"}
+      >
+        <div class="hero-carousel__content container">
+          <p class="hero-carousel__kicker">{slide.kicker}</p>
+          <h1>{slide.title}</h1>
+          <p class="hero-carousel__body">{slide.body}</p>
+          <a class="btn btn-primary" href="/contact-us/">Request Appointment</a>
+          {googleBadge && (
+            <a
+              class="hero-rating-badge"
+              href={googleBadge.googleUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {`\u2605 ${googleBadge.rating} on Google \u2022 ${googleBadge.totalReviews} reviews`}
+            </a>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const carousels = document.querySelectorAll(".hero-carousel");
+
+    carousels.forEach((carousel) => {
+      const slides = Array.from(carousel.querySelectorAll(".hero-carousel__slide"));
+      if (slides.length < 2) return;
+
+      let currentIndex = 0;
+      let intervalId;
+
+      const setActiveSlide = (nextIndex) => {
+        currentIndex = (nextIndex + slides.length) % slides.length;
+
+        slides.forEach((slide, index) => {
+          const isActive = index === currentIndex;
+          slide.classList.toggle("is-active", isActive);
+          slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+        });
+      };
+
+      const stopRotation = () => {
+        if (intervalId) {
+          window.clearInterval(intervalId);
+          intervalId = undefined;
+        }
+      };
+
+      const startRotation = () => {
+        stopRotation();
+        intervalId = window.setInterval(() => {
+          setActiveSlide(currentIndex + 1);
+        }, 6000);
+      };
+
+      carousel.addEventListener("mouseenter", stopRotation);
+      carousel.addEventListener("mouseleave", startRotation);
+
+      setActiveSlide(0);
+      startRotation();
+    });
+  })();
+
+  (() => {
+    if (window.__ihsRevealObserverInitialized) return;
+    window.__ihsRevealObserverInitialized = true;
+
+    const initReveals = () => {
+      const sections = Array.from(document.querySelectorAll(".section"));
+
+      sections.forEach((section) => {
+        const cards = Array.from(section.querySelectorAll(".card"));
+        cards.forEach((card, index) => {
+          if (!card.hasAttribute("data-reveal-delay")) {
+            card.setAttribute("data-reveal-delay", `${Math.min(index * 90, 360)}ms`);
+          }
+        });
+
+        const reviewCards = Array.from(section.querySelectorAll(".review-card"));
+        reviewCards.forEach((card, index) => {
+          card.setAttribute("data-reveal-delay", `${Math.min(index * 90, 360)}ms`);
+        });
+      });
+
+      const targets = Array.from(document.querySelectorAll(".section, .card, .review-card"));
+      if (targets.length === 0) return;
+
+      targets.forEach((element) => {
+        element.classList.add("reveal");
+
+        const rawDelay = (element.getAttribute("data-reveal-delay") || "").trim();
+        if (rawDelay.length === 0) return;
+
+        const normalizedDelay = /ms$|s$/i.test(rawDelay) ? rawDelay : `${rawDelay}ms`;
+        element.style.transitionDelay = normalizedDelay;
+      });
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+        targets.forEach((element) => element.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries, activeObserver) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            activeObserver.unobserve(entry.target);
+          });
+        },
+        {
+          threshold: 0.15,
+          rootMargin: "0px 0px -30px 0px",
+        },
+      );
+
+      targets.forEach((element) => observer.observe(element));
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initReveals, { once: true });
+    } else {
+      initReveals();
+    }
+  })();
+</script>
+
+<style>
+  .hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 65vh;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 18px;
+  }
+
+  .hero-carousel__track {
+    position: relative;
+    height: 100%;
+  }
+
+  .hero-carousel__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 700ms ease;
+    padding: 0;
+  }
+
+  .hero-carousel__slide.is-active {
+    opacity: 1;
+  }
+
+  .hero-carousel__slide.theme-1 {
+    background:
+      radial-gradient(circle at 18% 22%, rgba(125, 211, 252, 0.28), transparent 28%),
+      linear-gradient(135deg, #0f1b33 0%, #1d4ed8 100%);
+  }
+
+  .hero-carousel__slide.theme-2 {
+    background:
+      radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.18), transparent 26%),
+      linear-gradient(135deg, #312e81 0%, #6b5fd3 55%, #2bb673 100%);
+  }
+
+  .hero-carousel__slide.theme-3 {
+    background:
+      radial-gradient(circle at 22% 80%, rgba(255, 255, 255, 0.18), transparent 30%),
+      linear-gradient(135deg, #14532d 0%, #2bb673 45%, #0f766e 100%);
+  }
+
+  .hero-carousel__content {
+    position: relative;
+    z-index: 1;
+    color: #ffffff;
+    max-width: 760px;
+  }
+
+  .hero-carousel__kicker {
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .hero-carousel__content h1 {
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero-carousel__body {
+    margin: 0 0 20px;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 640px;
+  }
+
+  .hero-rating-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(2px);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-rating-badge:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.24);
+  }
+
+  @media (max-width: 767px) {
+    .hero-carousel {
+      height: auto;
+      min-height: 420px;
+    }
+
+    .hero-carousel__slide {
+      padding: 56px 0;
+    }
+
+    .hero-carousel__content {
+      padding: 0 20px;
+    }
+
+    .hero-carousel__content h1 {
+      font-size: clamp(1.4rem, 6vw, 2rem);
+      line-height: 1.2;
+    }
+
+    .hero-carousel__body {
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/lotus/PageHero.astro";
+import SpotlightSection from "../components/lotus/SpotlightSection.astro";
+import ValueGrid from "../components/lotus/ValueGrid.astro";
+import CtaBand from "../components/lotus/CtaBand.astro";
+import { lotusContent } from "../content/lotus";
+---
+<BaseLayout title={lotusContent.aboutPage.seo.title} description={lotusContent.aboutPage.seo.description}>
+  <Header />
+  <main>
+    <PageHero hero={lotusContent.aboutPage.hero} />
+    <SpotlightSection section={lotusContent.aboutPage.spotlight} />
+    <ValueGrid intro={lotusContent.aboutPage.valuesIntro} items={lotusContent.aboutPage.values} muted={true} />
+    <CtaBand section={lotusContent.aboutPage.cta} />
+  </main>
+  <Footer />
+</BaseLayout>

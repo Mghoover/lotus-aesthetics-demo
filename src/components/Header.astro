@@ -1,0 +1,62 @@
+---
+import { navigation } from "../config/navigation";
+import { navigationCta } from "../config/navigation";
+import { branding } from "../config/branding";
+---
+<div id="header-sentinel" aria-hidden="true"></div>
+<header class="site-header" data-site-header>
+  <div class="container header-inner">
+    <a href="/" class="site-brand" aria-label={`${branding.clinicName} home`}>
+      <img class="site-logo" src={branding.logo} alt={branding.clinicName} />
+    </a>
+    <button
+      class="site-nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      data-nav-toggle
+    >
+      Menu
+    </button>
+    <nav id="site-nav" class="site-nav" data-nav>
+      {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a class="btn btn-primary site-nav__cta" href={navigationCta.href}>{navigationCta.label}</a>
+    </nav>
+  </div>
+</header>
+<script is:inline>
+  const header = document.querySelector("[data-site-header]");
+  const sentinel = document.querySelector("#header-sentinel");
+  const toggle = document.querySelector("[data-nav-toggle]");
+  const nav = document.querySelector("[data-nav]");
+
+  if (header && sentinel && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        header.classList.toggle("header-scrolled", !entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: "-80px 0px 0px 0px",
+        threshold: 0,
+      },
+    );
+
+    observer.observe(sentinel);
+  }
+
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!expanded));
+      nav.classList.toggle("is-open", !expanded);
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        toggle.setAttribute("aria-expanded", "false");
+        nav.classList.remove("is-open");
+      });
+    });
+  }
+</script>

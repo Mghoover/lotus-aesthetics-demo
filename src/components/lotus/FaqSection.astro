@@ -1,0 +1,25 @@
+---
+import SectionIntro from "./SectionIntro.astro";
+import type { FaqItem, SectionIntro as SectionIntroType } from "../../types/lotus";
+
+const {
+  intro,
+  items,
+} = Astro.props as {
+  intro?: SectionIntroType;
+  items: FaqItem[];
+};
+---
+<section class="section">
+  <div class="container">
+    {intro && <SectionIntro {...intro} />}
+    <div class="lotus-faq">
+      {items.map((item) => (
+        <details class="lotus-faq__item">
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

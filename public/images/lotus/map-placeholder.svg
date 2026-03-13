@@ -1,0 +1,10 @@
+<svg width="720" height="560" viewBox="0 0 720 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="560" rx="32" fill="#F8F3EB"/>
+  <rect x="62" y="70" width="596" height="420" rx="28" fill="#FEFCF8"/>
+  <path d="M120 160C204 110 282 116 356 176C420 226 490 234 566 200V414C488 450 420 444 356 394C286 342 208 336 120 382V160Z" fill="#E4EAD9"/>
+  <path d="M204 118C258 146 298 184 322 232C346 280 390 328 454 374" stroke="#D2B06E" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="364" cy="264" r="56" fill="#7D957F"/>
+  <path d="M364 212C395.48 212 421 237.52 421 269C421 306.8 364 360 364 360C364 360 307 306.8 307 269C307 237.52 332.52 212 364 212Z" fill="#7D957F"/>
+  <circle cx="364" cy="270" r="20" fill="#F8F3EB"/>
+  <text x="178" y="470" fill="#25302A" font-family="Georgia, serif" font-size="24">Map / embed placeholder slot</text>
+</svg>

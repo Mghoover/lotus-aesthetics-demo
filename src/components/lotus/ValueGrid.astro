@@ -1,0 +1,27 @@
+---
+import SectionIntro from "./SectionIntro.astro";
+import type { SectionIntro as SectionIntroType, ValueItem } from "../../types/lotus";
+
+const {
+  intro,
+  items,
+  muted = false,
+} = Astro.props as {
+  intro?: SectionIntroType;
+  items: ValueItem[];
+  muted?: boolean;
+};
+---
+<section class:list={["section", muted && "section-muted"]}>
+  <div class="container">
+    {intro && <SectionIntro {...intro} />}
+    <div class="lotus-value-grid">
+      {items.map((item) => (
+        <article class="lotus-value-card">
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

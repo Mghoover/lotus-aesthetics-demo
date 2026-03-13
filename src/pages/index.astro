@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import HeroSection from "../components/lotus/HeroSection.astro";
+import ServiceGrid from "../components/lotus/ServiceGrid.astro";
+import ValueGrid from "../components/lotus/ValueGrid.astro";
+import SpotlightSection from "../components/lotus/SpotlightSection.astro";
+import TestimonialGrid from "../components/lotus/TestimonialGrid.astro";
+import FaqSection from "../components/lotus/FaqSection.astro";
+import CtaBand from "../components/lotus/CtaBand.astro";
+import { lotusContent } from "../content/lotus";
+---
+<BaseLayout title={lotusContent.home.seo.title} description={lotusContent.home.seo.description}>
+  <Header />
+  <main>
+    <HeroSection hero={lotusContent.home.hero} />
+    <div id="featured-services">
+      <ServiceGrid intro={lotusContent.home.featuredServicesIntro} items={lotusContent.home.featuredServices} />
+    </div>
+    <ValueGrid intro={lotusContent.home.whyChooseIntro} items={lotusContent.home.whyChoose} muted={true} />
+    <SpotlightSection section={lotusContent.home.aboutPreview} />
+    <SpotlightSection section={lotusContent.home.medicalPreview} reverse={true} muted={true} />
+    <TestimonialGrid intro={lotusContent.home.testimonialsIntro} items={lotusContent.home.testimonials} />
+    <FaqSection intro={lotusContent.home.faqIntro} items={lotusContent.home.faq} />
+    <CtaBand section={lotusContent.home.cta} />
+  </main>
+  <Footer />
+</BaseLayout>

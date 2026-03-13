@@ -1,0 +1,12 @@
+<svg width="720" height="560" viewBox="0 0 720 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="560" rx="32" fill="#F8F3EB"/>
+  <rect x="82" y="102" width="556" height="360" rx="24" fill="#FEFCF8"/>
+  <rect x="124" y="160" width="240" height="188" rx="18" fill="#E5EBD8"/>
+  <rect x="390" y="164" width="180" height="18" rx="9" fill="#C7AE74"/>
+  <rect x="390" y="202" width="156" height="14" rx="7" fill="#BFC8B1"/>
+  <rect x="390" y="232" width="132" height="14" rx="7" fill="#BFC8B1"/>
+  <rect x="108" y="390" width="504" height="28" rx="14" fill="#EEE2CA"/>
+  <circle cx="230" cy="256" r="52" fill="#A2B08D"/>
+  <path d="M214 256C222 232 242 214 274 202C270 230 254 256 226 280C218 286 208 291 196 294C198 282 204 269 214 256Z" fill="#F8F3EB"/>
+  <text x="120" y="432" fill="#25302A" font-family="Georgia, serif" font-size="24">Aesthetic suite placeholder</text>
+</svg>
