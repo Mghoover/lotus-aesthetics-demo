@@ -1,6 +1,7 @@
 ---
 const { title, description } = Astro.props;
 import { branding } from "../config/branding";
+import { hub } from "../config/hub";
 import { siteConfig } from "../config/site";
 import "../styles/global.css";
 
@@ -52,6 +53,8 @@ const localBusinessSchema = {
     rel="stylesheet"
   />
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script is:inline>{`window.ORDINIS_SITE_ID = ${JSON.stringify(hub.siteId)};`}</script>
+  <script src={hub.trackerUrl}></script>
 </head>
 <body data-clinic-address={clinicAddress}>
   <slot />
